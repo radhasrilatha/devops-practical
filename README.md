@@ -43,7 +43,7 @@ Build the application image:
 docker build -t swimlane-app .
 ```
 
-Run locally using Docker Compose:
+Run locally using Docker Compose (for local testing):
 
 ```bash
 docker compose up -d
