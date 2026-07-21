@@ -5,3 +5,32 @@ Makefile
 .DS_Store
 .env
 data
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Terraform plans
+*.tfplan
+
+# Logs
+*.log
+
+# Node
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Docker
+docker-compose.override.yml
