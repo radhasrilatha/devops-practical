@@ -1,0 +1,11 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: swimlane-app-pdb
+
+spec:
+  minAvailable: 1
+
+  selector:
+    matchLabels:
+      app: swimlane-app

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swimlane-app
+
+spec:
+  replicas: {{ .Values.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: swimlane-app
+
+  template:
+    metadata:
+      labels:
+        app: swimlane-app
+
+    spec:
+      containers:
+
+      - name: swimlane-app
+
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+        ports:
+        - containerPort: 3000
+
+        env:
+        - name: MONGODB_URL
+          value: mongodb://mongodb:27017/swimlane
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+
+          capabilities:
+          drop:
+            - ALL
+        resources:
+{{ toYaml .Values.resources | indent 10 }}     
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+
+          initialDelaySeconds: 20
+          periodSeconds: 20
